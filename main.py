@@ -36,28 +36,15 @@ def get_weather(region):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
-    key = config["weather_key"]
-#     region_url = "https://geoapi.qweather.com/v2/city/lookup?location={}&key={}".format(region, key)
-#     response = get(region_url, headers=headers).json()
-#     if response["code"] == "404":
-#         print("推送消息失败，请检查地区名是否有误！")
-#         os.system("pause")
-#         sys.exit(1)
-#     elif response["code"] == "401":
-#         print("推送消息失败，请检查和风天气key是否正确！")
-#         os.system("pause")
-#         sys.exit(1)
-#     else:
-#         # 获取地区的location--id
-#         location_id = response["location"][0]["id"]
-    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(region, key)
+ 
+    weather_url = "http://api.tianapi.com/tianqi/index?key=8397a069c63560c833ea3e81e74a2515&city={}".format(region)
     response = get(weather_url, headers=headers).json()
     # 天气
-    weather = response["now"]["text"]
+    weather = response["newslist"]["weather"]
     # 当前温度
-    temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
+    temp = response["newslist"]["real"] + u"\N{DEGREE SIGN}" + "C"
     # 风向
-    wind_dir = response["now"]["windDir"]
+    wind_dir = response["newslist"]["wind"]
     return weather, temp, wind_dir
  
  
